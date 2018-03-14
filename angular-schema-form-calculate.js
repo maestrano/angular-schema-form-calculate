@@ -53,8 +53,13 @@ angular
               };
 
               function update(value) {
-                if(scope.form.format == 'number') value = Number(value);
-                sfSelect(scope.form.key, scope.model, value);
+                if(scope.form.format == 'number') {
+                  value = Number(value);
+                  sfSelect(scope.form.key, scope.model, value);
+                }
+                else if (scope.form.format == 'string') {
+                  sfSelect(scope.form.key, scope.model, value);
+                }
               };
             });
           }
