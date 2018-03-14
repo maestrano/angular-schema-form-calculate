@@ -65,7 +65,7 @@ angular
   .config(['schemaFormProvider', 'schemaFormDecoratorsProvider', 'sfPathProvider',
     function(schemaFormProvider,  schemaFormDecoratorsProvider, sfPathProvider) {
       schemaFormDecoratorsProvider.addMapping(
-        'materialDecorator',
+        'bootstrapDecorator',
         'calculate',
         'calculated-fields.html'
       );
