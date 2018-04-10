@@ -1,6 +1,6 @@
 /**
  * I calculate a field value based on a provided mathematical string
- *  
+ *
  * @example
  * {
  *   "type":"calculate",
@@ -11,11 +11,11 @@
  */
 angular
   .module('schemaForm')
-  .run(function($templateCache) {
+  .run(["$templateCache", function($templateCache) {
     // A template to use
     $templateCache.put('calculated-fields.html','<span class="calculate" model="model" form="form"></span>');
-  })
-  .directive('calculate', ['$compile', '$http', 'sfBuilder', 'sfSelect', '$interpolate', 'schemaFormDecorators', 
+  }])
+  .directive('calculate', ['$compile', '$http', 'sfBuilder', 'sfSelect', '$interpolate', 'schemaFormDecorators',
     function($compile, $http, sfBuilder, sfSelect, $interpolate, schemaFormDecoratorsProvider) {
       return {
         restrict: 'C',
@@ -53,8 +53,13 @@ angular
               };
 
               function update(value) {
-                if(scope.form.format == 'number') value = Number(value);
-                sfSelect(scope.form.key, scope.model, value);
+                if(scope.form.format == 'number') {
+                  value = Number(value);
+                  sfSelect(scope.form.key, scope.model, value);
+                }
+                else if (scope.form.format == 'string') {
+                  sfSelect(scope.form.key, scope.model, value);
+                }
               };
             });
           }
@@ -65,7 +70,7 @@ angular
   .config(['schemaFormProvider', 'schemaFormDecoratorsProvider', 'sfPathProvider',
     function(schemaFormProvider,  schemaFormDecoratorsProvider, sfPathProvider) {
       schemaFormDecoratorsProvider.addMapping(
-        'materialDecorator',
+        'bootstrapDecorator',
         'calculate',
         'calculated-fields.html'
       );
